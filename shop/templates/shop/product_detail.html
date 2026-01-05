@@ -1,0 +1,64 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} • KeyShop{% endblock %}
+
+{% block content %}
+<div class="breadcrumb">
+  <a href="{% url 'shop:home' %}">Shop</a>
+  <span>›</span>
+  <span>{{ product.name }}</span>
+</div>
+
+<section class="product">
+  <div class="product__left">
+    <div class="product__image">
+      <img
+        src="{% static 'shop/icons/' %}{{ product.icon_key|default:'default' }}.svg"
+        alt=""
+        style="width:72px;height:72px;opacity:.95;"
+      />
+    </div>
+
+    <div class="product__info">
+      <h1>{{ product.name }}</h1>
+      <p class="muted">{{ product.description|default:"Digital code / Key" }}</p>
+
+      <div class="meta">
+        <div class="meta__item">
+          <div class="muted small">Region</div>
+          <div class="strong">{{ product.region }}</div>
+        </div>
+        <div class="meta__item">
+          <div class="muted small">Lieferung</div>
+          <div class="strong">Weiterleitung</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="product__right">
+    <div class="buybox">
+      <div class="buybox__price">{% if product.price_eur %}{{ product.price_eur }} €
+      {% else %}
+        <span class="muted">Preis beim Anbieter</span>
+      {% endif %}
+      </div>
+      
+      <a class="btn btn--primary btn--full" href="{% url 'shop:affiliate_go' product.pk %}" target="_blank" rel="nofollow sponsored">
+        Zum Anbieter
+      </a>
+
+      <div class="muted small buybox__hint">
+        Affiliate-Hinweis: Beim Klick wirst du zu einem externen Anbieter weitergeleitet. Kein Verkauf auf dieser Website.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="strong">Hinweis</div>
+      <p class="muted small">Wir leiten dich per Affiliate-Link zu einem externen Anbieter weiter. Preise und Verfügbarkeit können sich dort ändern.</p>
+    </div>
+  </aside>
+</section>
+{% endblock %}
+

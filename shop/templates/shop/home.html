@@ -1,0 +1,151 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}KeyShop • Digitale Codes{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <h1>
+    {% if current_category %}
+      {{ current_category.name }}
+    {% else %}
+      Digitale Codes
+    {% endif %}
+  </h1>
+  <p class="muted">
+    Du wirst zum Anbieter weitergeleitet (Affiliate).
+  </p>
+</section>
+
+<section class="toolbar">
+
+  <!-- Suche -->
+  <form class="search" method="get">
+    <input
+      type="text"
+      name="q"
+      placeholder="Suchen (z.B. Fortnite, Spotify...)"
+      value="{{ q|default:'' }}"
+    />
+    <input type="hidden" name="sort" value="{{ sort|default:'' }}">
+    <input type="hidden" name="region" value="{{ region|default:'' }}">
+  </form>
+
+  <div class="filters">
+
+    <!-- Sortieren -->
+    <form method="get" class="sortform">
+      <input type="hidden" name="q" value="{{ q|default:'' }}">
+      <input type="hidden" name="region" value="{{ region|default:'' }}">
+
+      <select name="sort" class="select" onchange="this.form.submit()">
+        <option value="">Sortieren</option>
+        <option value="price_asc" {% if sort == "price_asc" %}selected{% endif %}>
+          Preis: günstig → teuer
+        </option>
+        <option value="price_desc" {% if sort == "price_desc" %}selected{% endif %}>
+          Preis: teuer → günstig
+        </option>
+        <option value="name_asc" {% if sort == "name_asc" %}selected{% endif %}>
+          Name: A → Z
+        </option>
+      </select>
+
+      <a class="btn btn--ghost"
+         href="{% if current_category %}
+                  {% url 'shop:category' current_category.slug %}
+                {% else %}
+                  {% url 'shop:home' %}
+                {% endif %}">
+        Reset
+      </a>
+    </form>
+
+    <!-- Region -->
+    <form method="get" class="sortform">
+      <input type="hidden" name="q" value="{{ q|default:'' }}">
+      <input type="hidden" name="sort" value="{{ sort|default:'' }}">
+
+      <select name="region" class="select" onchange="this.form.submit()">
+        <option value="">Region</option>
+        <option value="DE" {% if region == "DE" %}selected{% endif %}>Deutschland</option>
+        <option value="EU" {% if region == "EU" %}selected{% endif %}>Europa</option>
+        <option value="GLOBAL" {% if region == "GLOBAL" %}selected{% endif %}>Weltweit</option>
+      </select>
+    </form>
+
+  </div>
+</section>
+
+<section class="grid">
+  {% for p in products %}
+    <article class="card card--product">
+
+      <a class="cardlink"
+        href="{% if p.affiliate_url %}{% url 'shop:affiliate_go' p.pk %}{% else %}{% url 'shop:product_detail' p.pk %}{% endif %}"
+        {% if p.affiliate_url %}target="_blank" rel="nofollow sponsored"{% endif %}>
+        <div class="pimg">
+          <img
+            src="{% static 'shop/icons/' %}{{ p.icon_key|default:'default' }}.svg"
+            alt="{{ p.name }}"
+            style="width:44px;height:44px;opacity:.95;"
+          />
+        </div>
+      </a>
+
+
+      <div class="pinfo">
+
+        <div class="ptags">
+          <span class="badge">Digital Code</span>
+          <span class="badge badge--soft">Region: {{ p.region }}</span>
+        </div>
+
+        <h3 class="card__title">
+          <a class="cardlink__title"
+            href="{% if p.affiliate_url %}{% url 'shop:affiliate_go' p.pk %}{% else %}{% url 'shop:product_detail' p.pk %}{% endif %}"
+            {% if p.affiliate_url %}target="_blank" rel="nofollow sponsored"{% endif %}>
+            {{ p.name }}
+          </a>
+        </h3>
+
+        <p class="muted small">
+          {{ p.description|default:"Digitaler Code / Key" }}
+        </p>
+
+        <div class="prow">
+
+          <!-- Preis -->
+          <div class="price">
+            {% if p.price_eur %}
+              {{ p.price_eur }} €
+            {% else %}
+              <span class="muted">Preis beim Anbieter</span>
+            {% endif %}
+          </div>
+
+          <!-- Button -->
+          {% if p.affiliate_url %}
+            <a class="btn btn--primary"
+               href="{% url 'shop:affiliate_go' p.pk %}"
+               target="_blank"
+               rel="nofollow sponsored">
+              Zum Anbieter
+            </a>
+          {% else %}
+            <a class="btn btn--ghost"
+               href="{% url 'shop:product_detail' p.pk %}">
+              Details
+            </a>
+          {% endif %}
+
+        </div>
+      </div>
+    </article>
+  {% empty %}
+    <p class="muted">Keine Produkte gefunden.</p>
+  {% endfor %}
+</section>
+
+{% endblock %}

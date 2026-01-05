@@ -1,0 +1,54 @@
+{% load static %}
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}KeyShop{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="{% url 'shop:home' %}">KeyShop</a>
+
+        <nav class="nav">
+        <a class="nav__link {% if not current_category %}is-active{% endif %}"
+            href="{% url 'shop:home' %}">Shop</a>
+
+        {% for c in categories %}
+            <a class="nav__link {% if current_category and current_category.slug == c.slug %}is-active{% endif %}"
+                href="{% url 'shop:category' c.slug %}">
+                {{ c.name }}
+            </a>
+        {% endfor %}
+        </nav>
+
+
+
+      <div class="header__right">
+        <span class="pill">Affiliate</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="muted">© {% now "Y" %} KeyShop • Affiliate/Weiterleitung</div>
+      <div class="muted small">Affiliate-Hinweis: Diese Website enthält Affiliate-Links. Beim Klick wirst du zu einem externen Anbieter weitergeleitet.</div>
+      <div class="footer__links">
+        <a href="{% url 'shop:impressum' %}">Impressum</a>
+        <a href="{% url 'shop:datenschutz' %}">Datenschutz</a>
+        <a href="{% url 'shop:kontakt' %}">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
