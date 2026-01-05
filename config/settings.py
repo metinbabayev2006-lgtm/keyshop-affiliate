@@ -111,7 +111,12 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "de"
 TIME_ZONE = "Europe/Berlin"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [
+    "keyshop-affiliate.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
 
 USE_I18N = True
 LANGUAGES = [
