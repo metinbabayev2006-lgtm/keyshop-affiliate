@@ -101,6 +101,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Wenn du einen Ordner "static" im Projekt-Root hast (neben manage.py), lass das so.
 # Wenn du KEINEN "static"-Ordner hast, dann kommentier die nächste Zeile aus.
