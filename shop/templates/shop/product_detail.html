@@ -16,7 +16,9 @@
       <img
         src="{% static 'shop/icons/' %}{{ product.icon_key|default:'default' }}.svg"
         alt=""
-        style="width:72px;height:72px;opacity:.95;"
+        width="72"
+        height="72"
+        loading="lazy"
       />
     </div>
 
@@ -27,11 +29,49 @@
       <div class="meta">
         <div class="meta__item">
           <div class="muted small">Region</div>
-          <div class="strong">{{ product.region }}</div>
+          <div class="strong">{{ product.region|default:"—" }}</div>
         </div>
         <div class="meta__item">
           <div class="muted small">Lieferung</div>
           <div class="strong">Weiterleitung</div>
+        </div>
+        <div class="meta__item">
+          <div class="muted small">Zahlung</div>
+          <div class="strong">Beim Anbieter</div>
+        </div>
+      </div>
+
+      <div class="panel panel--soft" style="margin-top:14px">
+        <div class="strong">Was du bekommst</div>
+        <ul class="muted small" style="margin:10px 0 0 18px">
+          <li>Digitaler Code/Key beim Anbieter</li>
+          <li>Region abhängig vom Angebot</li>
+          <li>Bezahlung & Lieferung beim Anbieter</li>
+        </ul>
+      </div>
+
+      <div class="panel" style="margin-top:14px">
+        <div class="strong">FAQ</div>
+
+        <div class="qa">
+          <div class="qa__q">Wie erhalte ich den Code?</div>
+          <div class="qa__a muted small">
+            Du wirst zu einem externen Anbieter weitergeleitet. Dort erfolgt Kauf und Zustellung des Codes.
+          </div>
+        </div>
+
+        <div class="qa">
+          <div class="qa__q">Kann ich hier direkt kaufen?</div>
+          <div class="qa__a muted small">
+            Nein. Diese Website verkauft nicht selbst – sie leitet nur weiter (Affiliate).
+          </div>
+        </div>
+
+        <div class="qa">
+          <div class="qa__q">Welche Region soll ich wählen?</div>
+          <div class="qa__a muted small">
+            Achte auf die Region beim Anbieter. Wenn du unsicher bist: lieber EU/Global wählen.
+          </div>
         </div>
       </div>
     </div>
@@ -39,15 +79,29 @@
 
   <aside class="product__right">
     <div class="buybox">
-      <div class="buybox__price">{% if product.price_eur %}{{ product.price_eur }} €
-      {% else %}
-        <span class="muted">Preis beim Anbieter</span>
-      {% endif %}
+      <div class="buybox__top">
+        <div class="buybox__price">
+          {% if product.price_eur %}
+            {{ product.price_eur }} €
+          {% else %}
+            <span class="muted">Preis beim Anbieter</span>
+          {% endif %}
+        </div>
+        <div class="muted small">inkl. Weiterleitung zum Anbieter</div>
       </div>
-      
-      <a class="btn btn--primary btn--full" href="{% url 'shop:affiliate_go' product.pk %}" target="_blank" rel="nofollow sponsored">
+
+      <a class="btn btn--primary btn--full"
+         href="{% url 'shop:affiliate_go' product.pk %}"
+         target="_blank"
+         rel="nofollow sponsored">
         Zum Anbieter
       </a>
+
+      <div class="trust">
+        <span class="trust__item">✅ Digital</span>
+        <span class="trust__item">✅ Sicher</span>
+        <span class="trust__item">✅ Affiliate</span>
+      </div>
 
       <div class="muted small buybox__hint">
         Affiliate-Hinweis: Beim Klick wirst du zu einem externen Anbieter weitergeleitet. Kein Verkauf auf dieser Website.
@@ -56,7 +110,12 @@
 
     <div class="panel">
       <div class="strong">Hinweis</div>
-      <p class="muted small">Wir leiten dich per Affiliate-Link zu einem externen Anbieter weiter. Preise und Verfügbarkeit können sich dort ändern.</p>
+      <p class="muted small">
+        Wir leiten dich per Affiliate-Link zu einem externen Anbieter weiter. Preise und Verfügbarkeit können sich dort ändern.
+      </p>
+      <p class="muted small" style="margin-top:10px">
+        Tipp: Prüfe beim Anbieter Region/Plattform, bevor du kaufst.
+      </p>
     </div>
   </aside>
 </section>

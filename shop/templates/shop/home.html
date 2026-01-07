@@ -13,59 +13,34 @@
       Digitale Codes
     {% endif %}
   </h1>
-  <p class="muted">
-    Du wirst zum Anbieter weitergeleitet (Affiliate).
-  </p>
+  <p class="muted">Du wirst zum Anbieter weitergeleitet (Affiliate).</p>
+
+  <div class="ptags" style="margin-top:14px">
+    <a class="btn btn--primary" href="#products">Jetzt ansehen</a>
+    <a class="btn btn--ghost" href="{% url 'shop:kontakt' %}">Kontakt</a>
+  </div>
 </section>
 
 <section class="toolbar">
+  <form class="toolbar__form" method="get">
+    <div class="search">
+      <input
+        type="text"
+        name="q"
+        placeholder="Suchen (z.B. Fortnite, Spotify...)"
+        value="{{ q|default:'' }}"
+        autocomplete="off"
+      />
+      <button class="btn btn--ghost" type="submit">Suchen</button>
+    </div>
 
-  <!-- Suche -->
-  <form class="search" method="get">
-    <input
-      type="text"
-      name="q"
-      placeholder="Suchen (z.B. Fortnite, Spotify...)"
-      value="{{ q|default:'' }}"
-    />
-    <input type="hidden" name="sort" value="{{ sort|default:'' }}">
-    <input type="hidden" name="region" value="{{ region|default:'' }}">
-  </form>
-
-  <div class="filters">
-
-    <!-- Sortieren -->
-    <form method="get" class="sortform">
-      <input type="hidden" name="q" value="{{ q|default:'' }}">
-      <input type="hidden" name="region" value="{{ region|default:'' }}">
-
+    <div class="filters">
       <select name="sort" class="select" onchange="this.form.submit()">
         <option value="">Sortieren</option>
-        <option value="price_asc" {% if sort == "price_asc" %}selected{% endif %}>
-          Preis: günstig → teuer
-        </option>
-        <option value="price_desc" {% if sort == "price_desc" %}selected{% endif %}>
-          Preis: teuer → günstig
-        </option>
-        <option value="name_asc" {% if sort == "name_asc" %}selected{% endif %}>
-          Name: A → Z
-        </option>
+        <option value="price_asc" {% if sort == "price_asc" %}selected{% endif %}>Preis: günstig → teuer</option>
+        <option value="price_desc" {% if sort == "price_desc" %}selected{% endif %}>Preis: teuer → günstig</option>
+        <option value="name_asc" {% if sort == "name_asc" %}selected{% endif %}>Name: A → Z</option>
       </select>
-
-      <a class="btn btn--ghost"
-         href="{% if current_category %}
-                  {% url 'shop:category' current_category.slug %}
-                {% else %}
-                  {% url 'shop:home' %}
-                {% endif %}">
-        Reset
-      </a>
-    </form>
-
-    <!-- Region -->
-    <form method="get" class="sortform">
-      <input type="hidden" name="q" value="{{ q|default:'' }}">
-      <input type="hidden" name="sort" value="{{ sort|default:'' }}">
 
       <select name="region" class="select" onchange="this.form.submit()">
         <option value="">Region</option>
@@ -73,39 +48,45 @@
         <option value="EU" {% if region == "EU" %}selected{% endif %}>Europa</option>
         <option value="GLOBAL" {% if region == "GLOBAL" %}selected{% endif %}>Weltweit</option>
       </select>
-    </form>
 
-  </div>
+      <a class="btn btn--ghost"
+         href="{% if current_category %}{% url 'shop:category' current_category.slug %}{% else %}{% url 'shop:home' %}{% endif %}">
+        Reset
+      </a>
+    </div>
+  </form>
 </section>
 
-<section class="grid">
+<section id="products" class="grid">
   {% for p in products %}
-    <article class="card card--product">
+    {% url 'shop:product_detail' p.pk as detail_url %}
+    {% url 'shop:affiliate_go' p.pk as go_url %}
 
-      <a class="cardlink"
-        href="{% if p.affiliate_url %}{% url 'shop:affiliate_go' p.pk %}{% else %}{% url 'shop:product_detail' p.pk %}{% endif %}"
-        {% if p.affiliate_url %}target="_blank" rel="nofollow sponsored"{% endif %}>
-        <div class="pimg">
-          <img
-            src="{% static 'shop/icons/' %}{{ p.icon_key|default:'default' }}.svg"
-            alt="{{ p.name }}"
-            style="width:44px;height:44px;opacity:.95;"
-          />
-        </div>
+    <article class="card card--product">
+      <!-- whole card -> detail page -->
+      <a class="cardlink cardlink--full"
+         href="{{ detail_url }}"
+         aria-label="{{ p.name }}">
       </a>
 
+      <div class="pimg">
+        <img
+          src="{% static 'shop/icons/' %}{{ p.icon_key|default:'default' }}.svg"
+          alt=""
+          width="44"
+          height="44"
+          loading="lazy"
+        />
+      </div>
 
       <div class="pinfo">
-
         <div class="ptags">
           <span class="badge">Digital Code</span>
-          <span class="badge badge--soft">Region: {{ p.region }}</span>
+          <span class="badge badge--soft">Region: {{ p.region|default:"—" }}</span>
         </div>
 
         <h3 class="card__title">
-          <a class="cardlink__title"
-            href="{% if p.affiliate_url %}{% url 'shop:affiliate_go' p.pk %}{% else %}{% url 'shop:product_detail' p.pk %}{% endif %}"
-            {% if p.affiliate_url %}target="_blank" rel="nofollow sponsored"{% endif %}>
+          <a href="{{ detail_url }}" class="card__link">
             {{ p.name }}
           </a>
         </h3>
@@ -115,8 +96,6 @@
         </p>
 
         <div class="prow">
-
-          <!-- Preis -->
           <div class="price">
             {% if p.price_eur %}
               {{ p.price_eur }} €
@@ -125,24 +104,21 @@
             {% endif %}
           </div>
 
-          <!-- Button -->
           {% if p.affiliate_url %}
+            <!-- button -> provider -->
             <a class="btn btn--primary"
-               href="{% url 'shop:affiliate_go' p.pk %}"
+               href="{{ go_url }}"
                target="_blank"
                rel="nofollow sponsored">
               Zum Anbieter
             </a>
           {% else %}
-            <a class="btn btn--ghost"
-               href="{% url 'shop:product_detail' p.pk %}">
-              Details
-            </a>
+            <a class="btn btn--ghost" href="{{ detail_url }}">Details</a>
           {% endif %}
-
         </div>
       </div>
     </article>
+
   {% empty %}
     <p class="muted">Keine Produkte gefunden.</p>
   {% endfor %}

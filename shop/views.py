@@ -1,15 +1,17 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from catalog.models import Product, Category
+from django.db.models import Q
 
 
 def apply_sort(products, sort: str):
     if sort == "price_asc":
-        return products.order_by("price_eur", "name")
+        return products.order_by("price_eur__isnull", "price_eur", "name")
     if sort == "price_desc":
-        return products.order_by("-price_eur", "name")
+        return products.order_by("price_eur__isnull", "-price_eur", "name")
     if sort == "name_asc":
         return products.order_by("name")
     return products.order_by("-id")
+
 
 
 def home(request):
@@ -51,7 +53,7 @@ def category_list(request, slug):
     products = Product.objects.filter(active=True, category=current_category).select_related("category", "region")
 
     if q:
-        products = products.filter(name__icontains=q)
+        products = products.filter(Q(name__icontains=q) | Q(description__icontains=q))
 
     if region:
         products = products.filter(region__code=region)

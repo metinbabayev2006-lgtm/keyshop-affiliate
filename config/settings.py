@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
 SECRET_KEY = 'django-insecure-&s08d@z267-pxmv@tylz-54-b#0y%!&_=s7gd2&nf03)sl(h!u'
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "keyshop-affiliate.onrender.com",

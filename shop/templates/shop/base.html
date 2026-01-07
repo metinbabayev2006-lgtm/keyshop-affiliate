@@ -4,51 +4,124 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="KeyShop – Digitale Keys & Codes (Affiliate/Weiterleitung)" />
   <title>{% block title %}KeyShop{% endblock %}</title>
-
   <link rel="stylesheet" href="{% static 'shop/style.css' %}">
 </head>
 <body>
 
-  <header class="header">
-    <div class="container header__inner">
-      <a class="brand" href="{% url 'shop:home' %}">KeyShop</a>
+<a class="skip-link" href="#main-content">Zum Inhalt springen</a>
 
-        <nav class="nav">
-        <a class="nav__link {% if not current_category %}is-active{% endif %}"
-            href="{% url 'shop:home' %}">Shop</a>
+<header class="header">
+  <div class="container header__inner">
+    <a class="brand" href="{% url 'shop:home' %}">KeyShop</a>
 
-        {% for c in categories %}
-            <a class="nav__link {% if current_category and current_category.slug == c.slug %}is-active{% endif %}"
-                href="{% url 'shop:category' c.slug %}">
-                {{ c.name }}
-            </a>
-        {% endfor %}
-        </nav>
+    <nav class="nav nav--desktop" aria-label="Kategorien">
+      <a class="nav__link {% if not current_category %}is-active{% endif %}"
+         href="{% url 'shop:home' %}">Shop</a>
 
+      {% for c in categories %}
+        <a class="nav__link {% if current_category and current_category.slug == c.slug %}is-active{% endif %}"
+           href="{% url 'shop:category' c.slug %}">{{ c.name }}</a>
+      {% endfor %}
+    </nav>
 
+    <div class="header__right">
+      <span class="pill" title="Diese Seite nutzt Affiliate-Links">Affiliate</span>
 
-      <div class="header__right">
-        <span class="pill">Affiliate</span>
-      </div>
+      <button class="nav__toggle" type="button"
+              aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span class="nav__bar"></span>
+        <span class="nav__bar"></span>
+        <span class="nav__bar"></span>
+      </button>
     </div>
-  </header>
+  </div>
 
-  <main class="container main">
-    {% block content %}{% endblock %}
-  </main>
+  <div class="nav__backdrop" id="mobileBackdrop" hidden></div>
 
-  <footer class="footer">
-    <div class="container footer__inner">
+  <nav class="nav__mobile" id="mobileMenu" hidden>
+    <a class="{% if not current_category %}is-active{% endif %}"
+       href="{% url 'shop:home' %}">Shop</a>
+
+    <div class="nav__mobile__sep"></div>
+
+    {% for c in categories %}
+      <a class="{% if current_category and current_category.slug == c.slug %}is-active{% endif %}"
+         href="{% url 'shop:category' c.slug %}">{{ c.name }}</a>
+    {% endfor %}
+
+    <div class="nav__mobile__sep"></div>
+
+    <a href="{% url 'shop:kontakt' %}">Kontakt</a>
+    <a href="{% url 'shop:impressum' %}">Impressum</a>
+    <a href="{% url 'shop:datenschutz' %}">Datenschutz</a>
+  </nav>
+</header>
+
+<main id="main-content" class="container main" role="main">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__top">
       <div class="muted">© {% now "Y" %} KeyShop • Affiliate/Weiterleitung</div>
-      <div class="muted small">Affiliate-Hinweis: Diese Website enthält Affiliate-Links. Beim Klick wirst du zu einem externen Anbieter weitergeleitet.</div>
       <div class="footer__links">
         <a href="{% url 'shop:impressum' %}">Impressum</a>
         <a href="{% url 'shop:datenschutz' %}">Datenschutz</a>
         <a href="{% url 'shop:kontakt' %}">Kontakt</a>
       </div>
     </div>
-  </footer>
+
+    <p class="muted small footer__notice">
+      Affiliate-Hinweis: Diese Website enthält Affiliate-Links. Beim Klick wirst du zu einem externen Anbieter weitergeleitet.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const btn = document.querySelector(".nav__toggle");
+  const menu = document.getElementById("mobileMenu");
+  const backdrop = document.getElementById("mobileBackdrop");
+  if (!btn || !menu || !backdrop) return;
+
+  function openMenu(){
+    menu.hidden = false;
+    backdrop.hidden = false;
+    menu.classList.add("is-open");
+    btn.classList.add("is-open");          // <-- Hamburger wird X
+    btn.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu(){
+    menu.classList.remove("is-open");
+    btn.classList.remove("is-open");       // <-- X wird Hamburger
+    btn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+
+    setTimeout(() => {
+      menu.hidden = true;
+      backdrop.hidden = true;
+    }, 180);
+  }
+
+  btn.addEventListener("click", () => {
+    const isOpen = btn.getAttribute("aria-expanded") === "true";
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  backdrop.addEventListener("click", closeMenu);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+
+  menu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+})();
+</script>
 
 </body>
 </html>
