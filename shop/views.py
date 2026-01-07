@@ -1,16 +1,22 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from catalog.models import Product, Category
 from django.db.models import Q
-
+from django.db.models import F
 
 def apply_sort(products, sort: str):
     if sort == "price_asc":
-        return products.order_by("price_eur__isnull", "price_eur", "name")
+        # Preis aufsteigend, aber leere Preise (NULL) nach hinten
+        return products.order_by(F("price_eur").asc(nulls_last=True), "name")
+
     if sort == "price_desc":
-        return products.order_by("price_eur__isnull", "-price_eur", "name")
+        # Preis absteigend, leere Preise (NULL) nach hinten
+        return products.order_by(F("price_eur").desc(nulls_last=True), "name")
+
     if sort == "name_asc":
         return products.order_by("name")
+
     return products.order_by("-id")
+
 
 
 
