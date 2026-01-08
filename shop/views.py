@@ -2,6 +2,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from catalog.models import Product, Category
 from django.db.models import Q
 from django.db.models import F
+from django.shortcuts import render
+
+def about(request):
+    return render(request, "shop/about.html")
+
+def how_we_make_money(request):
+    return render(request, "shop/how_we_make_money.html")
 
 def apply_sort(products, sort: str):
     if sort == "price_asc":

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="KeyShop – Digitale Keys & Codes (Affiliate/Weiterleitung)" />
+  <meta name="description" content="KeyShop – Vergleich von digitalen Codes & Weiterleitung (Affiliate)" />
   <title>{% block title %}KeyShop{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'shop/style.css' %}">
 </head>
@@ -53,11 +53,45 @@
 
     <div class="nav__mobile__sep"></div>
 
+    <!-- Trust-Seiten (wichtig für Awin) -->
+    <a href="{% url 'shop:about' %}">Über uns</a>
+    <a href="{% url 'shop:how_we_make_money' %}">Wie wir Geld verdienen</a>
+
+    <div class="nav__mobile__sep"></div>
+
     <a href="{% url 'shop:kontakt' %}">Kontakt</a>
     <a href="{% url 'shop:impressum' %}">Impressum</a>
     <a href="{% url 'shop:datenschutz' %}">Datenschutz</a>
   </nav>
 </header>
+
+<!-- ✅ Anzeige (sauber, passt zu deinem Layout) -->
+<div class="container" style="margin-top:14px;">
+  <div class="panel" role="region" aria-label="Anzeige">
+    <div class="muted small" style="margin-bottom:8px;">Anzeige</div>
+
+    <div style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
+      <div>
+        <strong>Top-Angebote ansehen</strong>
+        <div class="muted small">Du wirst zu einem externen Anbieter weitergeleitet.</div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn"
+           href="https://www.spotify.com/de/premium/"
+           target="_blank" rel="nofollow sponsored noopener">
+          Spotify Premium
+        </a>
+
+        <a class="btn primary"
+           href="https://www.youtube.com/premium"
+           target="_blank" rel="nofollow sponsored noopener">
+          YouTube Premium
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <main id="main-content" class="container main" role="main">
   {% block content %}{% endblock %}
@@ -66,8 +100,10 @@
 <footer class="footer">
   <div class="container footer__inner">
     <div class="footer__top">
-      <div class="muted">© {% now "Y" %} KeyShop • Affiliate/Weiterleitung</div>
+      <div class="muted">© {% now "Y" %} KeyShop • Vergleich & Weiterleitung</div>
       <div class="footer__links">
+        <a href="{% url 'shop:about' %}">Über uns</a>
+        <a href="{% url 'shop:how_we_make_money' %}">Wie wir Geld verdienen</a>
         <a href="{% url 'shop:impressum' %}">Impressum</a>
         <a href="{% url 'shop:datenschutz' %}">Datenschutz</a>
         <a href="{% url 'shop:kontakt' %}">Kontakt</a>
@@ -75,7 +111,8 @@
     </div>
 
     <p class="muted small footer__notice">
-      Affiliate-Hinweis: Diese Website enthält Affiliate-Links. Beim Klick wirst du zu einem externen Anbieter weitergeleitet.
+      Affiliate-Hinweis: Diese Website enthält Affiliate-Links. Beim Klick wirst du zu externen Anbietern weitergeleitet.
+      Wenn du dort kaufst, können wir eine Provision erhalten.
     </p>
   </div>
 </footer>
@@ -91,14 +128,14 @@
     menu.hidden = false;
     backdrop.hidden = false;
     menu.classList.add("is-open");
-    btn.classList.add("is-open");          // <-- Hamburger wird X
+    btn.classList.add("is-open");
     btn.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
   }
 
   function closeMenu(){
     menu.classList.remove("is-open");
-    btn.classList.remove("is-open");       // <-- X wird Hamburger
+    btn.classList.remove("is-open");
     btn.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
 

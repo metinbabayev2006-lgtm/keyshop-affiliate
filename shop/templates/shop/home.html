@@ -21,6 +21,109 @@
   </div>
 </section>
 
+{% comment %} MINI-GUIDES (Awin-ready) {% endcomment %}
+
+<section style="margin-top:16px;">
+  <details class="panel prose" style="cursor:pointer;">
+    <summary style="list-style:none; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+      <div>
+        <strong>Mini-Guide anzeigen</strong>
+        <div class="muted small">
+          Tipps zu Region, Laufzeit und Einlösung (Awin-ready).
+        </div>
+      </div>
+      <span class="muted small">▼</span>
+    </summary>
+
+    <div style="margin-top:12px;">
+      {% if current_category %}
+        {% if current_category.slug == "steam" %}
+          <h2 class="strong">Steam Guthaben: Worauf achten?</h2>
+          <p>
+            Steam Guthaben ist praktisch, wenn du Spiele, DLCs oder In-Game-Inhalte direkt über Steam kaufen willst.
+            Beim Kauf eines Codes ist der wichtigste Punkt die <strong>Region</strong>. Viele Angebote sind für ein bestimmtes
+            Land oder eine bestimmte Region gedacht (z.B. Deutschland/EU). Wenn dein Steam-Account in einer anderen Region
+            registriert ist, kann es sein, dass der Code nicht einlösbar ist oder nur eingeschränkt funktioniert.
+          </p>
+          <p>
+            Achte außerdem auf den <strong>Betrag</strong> (z.B. 10 €, 20 €, 50 €) und lies vor dem Kauf die Hinweise des Anbieters.
+            Manche Anbieter verwenden unterschiedliche Bezeichnungen, entscheidend sind Region und Einlösebedingungen.
+          </p>
+          <p>
+            <strong>Einlösung:</strong> In Steam gehst du auf „Spiele“ → „Einen Steam-Guthabencode einlösen“ (Wallet aufladen).
+            Nach der Einlösung wird das Guthaben deinem Konto gutgeschrieben.
+          </p>
+          <p class="muted small">
+            Hinweis: Wir verkaufen nichts direkt. Beim Klick auf „Zum Anbieter“ wirst du weitergeleitet (Affiliate).
+          </p>
+
+        {% elif current_category.slug == "playstation" %}
+          <h2 class="strong">PlayStation Guthaben: Region & Einlösung</h2>
+          <p>
+            PlayStation Store Guthaben (PSN) ist an die <strong>Region</strong> deines PlayStation-Kontos gebunden.
+            Ein Code für Deutschland funktioniert normalerweise nur mit einem deutschen Konto. Prüfe Region und Hinweise
+            beim Anbieter vor dem Kauf.
+          </p>
+          <p>
+            <strong>Einlösung:</strong> PlayStation Store → „Codes einlösen“ → Code eingeben.
+            Danach wird der Betrag als Guthaben angezeigt.
+          </p>
+          <p class="muted small">
+            Hinweis: Wir verkaufen nichts direkt. Beim Klick auf „Zum Anbieter“ wirst du weitergeleitet (Affiliate).
+          </p>
+
+        {% elif current_category.slug == "spotify" %}
+          <h2 class="strong">Spotify Premium: Laufzeit, Aktivierung, Unterschiede</h2>
+          <p>
+            Spotify Premium gibt es oft als Code mit bestimmter <strong>Laufzeit</strong> (1/3/6/12 Monate).
+            Achte auf die genaue Laufzeit und die Aktivierungsbedingungen (manche Angebote gelten nur für bestimmte Konten).
+          </p>
+          <p>
+            Prüfe außerdem die <strong>Region</strong>. Einige Codes sind nur in bestimmten Ländern einlösbar (z.B. DE/EU).
+            Preise und Bedingungen stehen immer beim Anbieter.
+          </p>
+          <p class="muted small">
+            Hinweis: Wir verkaufen nichts direkt. Beim Klick auf „Zum Anbieter“ wirst du weitergeleitet (Affiliate).
+          </p>
+
+        {% elif current_category.slug == "youtube-premium" %}
+          <h2 class="strong">YouTube Premium: Vorteile & Laufzeit</h2>
+          <p>
+            YouTube Premium bietet normalerweise werbefreies Schauen und oft YouTube Music.
+            Angebote unterscheiden sich vor allem bei der <strong>Laufzeit</strong> (1/3/6/12 Monate) und manchmal bei der Region.
+          </p>
+          <p>
+            Achte auf die <strong>Region</strong> und die Aktivierungs-Hinweise beim Anbieter.
+            Aktivierung erfolgt meist über dein Google-Konto.
+          </p>
+          <p class="muted small">
+            Hinweis: Wir verkaufen nichts direkt. Beim Klick auf „Zum Anbieter“ wirst du weitergeleitet (Affiliate).
+          </p>
+
+        {% else %}
+          <h2 class="strong">Hinweis</h2>
+          <p>
+            Wir vergleichen digitale Angebote und leiten dich bei Klick zu externen Anbietern weiter.
+            Achte bei digitalen Codes besonders auf Region, Laufzeit und Einlösebedingungen.
+          </p>
+        {% endif %}
+      {% else %}
+        <h2 class="strong">So funktioniert KeyShop</h2>
+        <p>
+          KeyShop ist ein Vergleichsprojekt für digitale Codes (z.B. Guthaben und Abos).
+          Du kannst Produkte nach Kategorie, Preis, Name und Region filtern.
+          Beim Klick auf „Zum Anbieter“ wirst du zu einem externen Anbieter weitergeleitet.
+          Wenn du dort etwas kaufst, können wir eine Provision erhalten.
+        </p>
+        <p class="muted small">
+          Hinweis: Wir verkaufen nichts direkt und führen keine Zahlungen über diese Website durch.
+        </p>
+      {% endif %}
+    </div>
+  </details>
+</section>
+
+
 <section class="toolbar">
   <form class="toolbar__form" method="get">
     <div class="search">

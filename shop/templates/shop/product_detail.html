@@ -90,12 +90,23 @@
         <div class="muted small">inkl. Weiterleitung zum Anbieter</div>
       </div>
 
-      <a class="btn btn--primary btn--full"
-         href="{% url 'shop:affiliate_go' product.pk %}"
-         target="_blank"
-         rel="nofollow sponsored">
-        Zum Anbieter
-      </a>
+      {% if product.affiliate_url %}
+        <a class="btn btn--primary btn--full"
+          href="{% url 'shop:affiliate_go' product.pk %}"
+          target="_blank"
+          rel="nofollow sponsored noopener">
+          Zum Anbieter
+        </a>
+      {% else %}
+        <a class="btn btn--ghost btn--full"
+          href="{% url 'shop:kontakt' %}">
+          Link folgt – Kontakt
+        </a>
+        <div class="muted small buybox__hint" style="margin-top:10px">
+          Für dieses Produkt ist aktuell kein Anbieter-Link hinterlegt.
+        </div>
+      {% endif %}
+
 
       <div class="trust">
         <span class="trust__item">✅ Digital</span>

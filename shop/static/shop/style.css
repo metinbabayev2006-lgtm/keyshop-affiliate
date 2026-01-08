@@ -591,4 +591,20 @@ p{ margin: 0 0 12px; }
   .nav--desktop{ display:none; }
   .nav__toggle{ display:inline-flex; align-items:center; justify-content:center; }
 }
+/* ===== Anzeige / Ad Slot ===== */
+.ad-slot { margin: 14px 0 4px; }
+.ad-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  padding: 14px 14px;
+}
+.ad-label { font-size: 12px; opacity: .75; margin-bottom: 8px; }
+.ad-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.ad-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Falls du keine .btn Klassen hast, nutz diese einfachen: */
+.btn { display:inline-block; padding:10px 12px; border-radius: 12px; text-decoration:none; border:1px solid rgba(255,255,255,.14); }
+.btn--primary { background: rgba(255,255,255,.12); }
+.btn--ghost { background: transparent; }
 
