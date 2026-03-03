@@ -1,14 +1,26 @@
 import os
 from django.core.management.base import BaseCommand
-from django.core.management import call_command
-from catalog.models import Product
+from django.contrib.auth import get_user_model
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        if os.getenv("BOOTSTRAP_PRODUCTS") != "1":
+        if os.getenv("BOOTSTRAP_ADMIN") != "1":
+            self.stdout.write("BOOTSTRAP_ADMIN not set -> skip")
             return
 
-        if Product.objects.exists():
-            return  # schon Produkte da -> nix machen
+        username = os.getenv("ADMIN_USERNAME")
+        email = os.getenv("ADMIN_EMAIL", "")
+        password = os.getenv("ADMIN_PASSWORD")
 
-        call_command("loaddata", "catalog/fixtures/products.json")
+        if not username or not password:
+            raise Exception("Missing ADMIN_USERNAME or ADMIN_PASSWORD")
+
+        User = get_user_model()
+        user, created = User.objects.get_or_create(username=username, defaults={"email": email})
+        user.email = email
+        user.is_staff = True
+        user.is_superuser = True
+        user.set_password(password)
+        user.save()
+
+        self.stdout.write(f"✅ Admin ready: {username} (created={created})")
