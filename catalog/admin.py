@@ -1,4 +1,8 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.core.management import call_command
+from django.http import HttpResponseRedirect
+from django.urls import path
+
 from .models import Product, Category, Region
 
 
@@ -29,6 +33,26 @@ class ProductAdmin(admin.ModelAdmin):
         ("Affiliate", {"fields": ("affiliate_url", "price_eur")}),
     )
 
-    # Fix: Filter im Admin (rechts) auch bei breiten Screens erzwingen
+    # ✅ Button im Admin anzeigen
+    change_list_template = "admin/catalog/product_changelist.html"
+
+    # ✅ Fix: Filter im Admin (rechts) auch bei breiten Screens erzwingen
     class Media:
         css = {"all": ("admin/custom.css",)}
+
+    # ✅ Extra Admin-URL: /admin/catalog/product/import-fixture/
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path("import-fixture/", self.admin_site.admin_view(self.import_fixture)),
+        ]
+        return my_urls + urls
+
+    # ✅ Importiert: catalog/fixtures/products.json
+    def import_fixture(self, request):
+        try:
+            call_command("loaddata", "catalog/fixtures/products.json")
+            messages.success(request, "Produkte erfolgreich importiert ✅")
+        except Exception as e:
+            messages.error(request, f"Import fehlgeschlagen: {e}")
+        return HttpResponseRedirect("../")
