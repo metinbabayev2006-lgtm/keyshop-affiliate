@@ -21,14 +21,25 @@ SECRET_KEY = os.getenv(
     "django-insecure-CHANGE-ME-LOCAL-ONLY"
 )
 
-# DEBUG über Env steuern (auf Render auf False lassen!)
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+# DEBUG
+# - Lokal: DEBUG standardmäßig True (damit Static/CSS sofort sichtbar ist)
+# - Auf Render: DEBUG standardmäßig False
+ON_RENDER = bool(os.getenv("RENDER") or os.getenv("RENDER_EXTERNAL_HOSTNAME"))
+_debug_env = os.getenv("DEBUG")
+if _debug_env is None:
+    DEBUG = not ON_RENDER
+else:
+    DEBUG = _debug_env.lower() == "true"
 
 ALLOWED_HOSTS = [
     "keyshop-affiliate.onrender.com",
     "localhost",
     "127.0.0.1",
 ]
+
+# Render hostname automatisch erlauben
+if os.getenv("RENDER_EXTERNAL_HOSTNAME"):
+    ALLOWED_HOSTS.append(os.getenv("RENDER_EXTERNAL_HOSTNAME"))
 
 # Applications
 INSTALLED_APPS = [
@@ -132,4 +143,25 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # Optional: nur wenn du einen globalen static-Ordner hast
 # STATICFILES_DIRS = [BASE_DIR / "static"]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# In Production (Render): hashed + compressed static
+# In Development: normale static storage (kein collectstatic nötig)
+if DEBUG:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# =========================
+# SECURITY (Production)
+# =========================
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+    CSRF_TRUSTED_ORIGINS = [
+        "https://keyshop-affiliate.onrender.com",
+    ]

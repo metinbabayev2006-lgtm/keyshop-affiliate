@@ -185,6 +185,9 @@
       <div class="pinfo">
         <div class="ptags">
           <span class="badge">Digital Code</span>
+          {% if p.category %}
+            <span class="badge badge--cat-{{ p.category.slug|default:'other' }}">{{ p.category.name }}</span>
+          {% endif %}
           <span class="badge badge--soft">Region: {{ p.region|default:"—" }}</span>
         </div>
 

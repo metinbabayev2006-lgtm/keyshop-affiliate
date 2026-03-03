@@ -28,3 +28,7 @@ class ProductAdmin(admin.ModelAdmin):
         ("Produkt", {"fields": ("name", "description", "icon_key", "category", "region", "active")}),
         ("Affiliate", {"fields": ("affiliate_url", "price_eur")}),
     )
+
+    # Fix: Filter im Admin (rechts) auch bei breiten Screens erzwingen
+    class Media:
+        css = {"all": ("admin/custom.css",)}

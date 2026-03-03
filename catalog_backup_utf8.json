@@ -36,7 +36,7 @@
   "pk": 1,
   "fields": {
     "name": "Roblox",
-    "description": "Roblox Gift Card 10â‚¬",
+    "description": "Roblox Gift Card 10€",
     "price_eur": "10.00",
     "affiliate_url": "https://amzn.to/4rPutSa",
     "active": true,
@@ -50,7 +50,7 @@
   "pk": 2,
   "fields": {
     "name": "Roblox",
-    "description": "Roblox Gift Card 25â‚¬",
+    "description": "Roblox Gift Card 25€",
     "price_eur": "25.00",
     "affiliate_url": "https://amzn.to/4rPs75Q",
     "active": true,
@@ -64,7 +64,7 @@
   "pk": 3,
   "fields": {
     "name": "Roblox",
-    "description": "Roblox Gift Card 50â‚¬",
+    "description": "Roblox Gift Card 50€",
     "price_eur": "50.00",
     "affiliate_url": "https://amzn.to/4r5wPuO",
     "active": true,
@@ -78,7 +78,7 @@
   "pk": 4,
   "fields": {
     "name": "Roblox",
-    "description": "Roblox Gift Card 100â‚¬",
+    "description": "Roblox Gift Card 100€",
     "price_eur": "100.00",
     "affiliate_url": "https://amzn.to/3MF8z4V",
     "active": true,
@@ -92,7 +92,7 @@
   "pk": 5,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 10â‚¬",
+    "description": "Xbox Gift Card 10€",
     "price_eur": "10.00",
     "affiliate_url": "https://amzn.to/4coTT4a",
     "active": true,
@@ -106,7 +106,7 @@
   "pk": 6,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 15â‚¬",
+    "description": "Xbox Gift Card 15€",
     "price_eur": "15.00",
     "affiliate_url": "https://amzn.to/46DOceZ",
     "active": true,
@@ -120,7 +120,7 @@
   "pk": 7,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 20â‚¬",
+    "description": "Xbox Gift Card 20€",
     "price_eur": "20.00",
     "affiliate_url": "https://amzn.to/4sknMXY",
     "active": true,
@@ -134,7 +134,7 @@
   "pk": 8,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 25â‚¬",
+    "description": "Xbox Gift Card 25€",
     "price_eur": "25.00",
     "affiliate_url": "https://amzn.to/4aK7rpM",
     "active": true,
@@ -148,7 +148,7 @@
   "pk": 9,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 30â‚¬",
+    "description": "Xbox Gift Card 30€",
     "price_eur": "30.00",
     "affiliate_url": "https://amzn.to/46AgBTe",
     "active": true,
@@ -162,7 +162,7 @@
   "pk": 10,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 45â‚¬",
+    "description": "Xbox Gift Card 45€",
     "price_eur": "45.00",
     "affiliate_url": "https://amzn.to/3OG8XAJ",
     "active": true,
@@ -176,7 +176,7 @@
   "pk": 11,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 50â‚¬",
+    "description": "Xbox Gift Card 50€",
     "price_eur": "50.00",
     "affiliate_url": "https://amzn.to/40JtLK4",
     "active": true,
@@ -190,7 +190,7 @@
   "pk": 12,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 75â‚¬",
+    "description": "Xbox Gift Card 75€",
     "price_eur": "75.00",
     "affiliate_url": "https://amzn.to/4raAbwX",
     "active": true,
@@ -204,7 +204,7 @@
   "pk": 13,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 80â‚¬",
+    "description": "Xbox Gift Card 80€",
     "price_eur": "80.00",
     "affiliate_url": "https://amzn.to/3OXVTql",
     "active": true,
@@ -218,7 +218,7 @@
   "pk": 14,
   "fields": {
     "name": "Xbox",
-    "description": "Xbox Gift Card 100â‚¬",
+    "description": "Xbox Gift Card 100€",
     "price_eur": "100.00",
     "affiliate_url": "https://amzn.to/3OTYbqs",
     "active": true,
@@ -232,7 +232,7 @@
   "pk": 15,
   "fields": {
     "name": "Valorant",
-    "description": "Valorant Gift Card 10â‚¬",
+    "description": "Valorant Gift Card 10€",
     "price_eur": "10.00",
     "affiliate_url": "https://amzn.to/4u6pP3H",
     "active": true,
@@ -246,7 +246,7 @@
   "pk": 16,
   "fields": {
     "name": "Valorant",
-    "description": "Valorant Gift Card 20â‚¬",
+    "description": "Valorant Gift Card 20€",
     "price_eur": "20.00",
     "affiliate_url": "https://amzn.to/4b23BXQ",
     "active": true,
@@ -260,7 +260,7 @@
   "pk": 17,
   "fields": {
     "name": "Valorant",
-    "description": "Valorant Gift Card 25â‚¬",
+    "description": "Valorant Gift Card 25€",
     "price_eur": "25.00",
     "affiliate_url": "https://amzn.to/4r8MkSX",
     "active": true,
@@ -274,7 +274,7 @@
   "pk": 18,
   "fields": {
     "name": "Valorant",
-    "description": "Valorant Gift Card 35â‚¬",
+    "description": "Valorant Gift Card 35€",
     "price_eur": "35.00",
     "affiliate_url": "https://amzn.to/3Nb726I",
     "active": true,
@@ -288,7 +288,7 @@
   "pk": 19,
   "fields": {
     "name": "Valorant",
-    "description": "Valorant Gift Card 50â‚¬",
+    "description": "Valorant Gift Card 50€",
     "price_eur": "50.00",
     "affiliate_url": "https://amzn.to/4skpZCK",
     "active": true,
@@ -302,7 +302,7 @@
   "pk": 20,
   "fields": {
     "name": "Valorant",
-    "description": "Valorant Gift Card 100â‚¬",
+    "description": "Valorant Gift Card 100€",
     "price_eur": "100.00",
     "affiliate_url": "https://amzn.to/4uacck8",
     "active": true,

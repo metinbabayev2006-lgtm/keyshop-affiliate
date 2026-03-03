@@ -1,0 +1,27 @@
+/*
+  Admin: Filter-Sidebar rechts erzwingen.
+  (Manchmal rutscht der Filter unten hin, obwohl genug Platz da ist.)
+*/
+@media (min-width: 1024px) {
+  #changelist {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 300px !important;
+    gap: 20px !important;
+    align-items: start !important;
+  }
+
+  #changelist-form {
+    grid-column: 1 !important;
+  }
+
+  #changelist-filter {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    width: 300px !important;
+    margin: 0 !important;
+    float: none !important;
+    position: sticky !important;
+    top: 12px !important;
+    height: fit-content !important;
+  }
+}

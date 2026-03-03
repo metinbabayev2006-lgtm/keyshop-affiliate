@@ -1,8 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from catalog.models import Product, Category
-from django.db.models import Q
-from django.db.models import F
-from django.shortcuts import render
+
+from catalog.models import Category, Product
+from django.db.models import F, Q
 
 def about(request):
     return render(request, "shop/about.html")
